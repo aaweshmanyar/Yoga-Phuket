@@ -1,0 +1,52 @@
+<section
+  className="min-h-[618px] lg:min-h-[815px] pt-9 bg-cover bg-center relative"
+  style={{
+    backgroundImage: `url(${heroData.image})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  {/* Test without overlay and parallax */}
+  <div className="relative container mx-auto text-white font-bold px-4 z-10">
+    <div className="flex flex-col items-center lg:flex-row lg:items-start pt-32 space-y-6 lg:space-y-0 lg:space-x-8">
+
+      {/* Text Section */}
+      <div className="flex-1 lg:mt-12 text-center lg:text-left" data-aos="fade-up" data-aos-delay="300">
+        <div className="flex flex-wrap justify-center lg:justify-start mb-4 lg:mb-[22px]">
+          <h1 className="h1 mb-3 text-4xl md:text-6xl">
+            {heroData.title1}
+          </h1>
+          <h1
+            className="h1 mb-3 text-4xl md:text-6xl"
+            style={{ color: "#fff", marginLeft: "10px", whiteSpace: "nowrap" }}
+          >
+            {heroData.title2}
+          </h1>
+        </div>
+
+        <p
+          className="mb-6 lg:mb-12 max-w-[480px] lg:text-lg mx-auto lg:mx-0 leading-relaxed lg:leading-loose"
+          data-aos="fade-up"
+          data-aos-delay="400"
+        >
+          {heroData.description}
+        </p>
+
+        {/* Buttons without animation */}
+        <div className="flex space-x-4 justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="500">
+          <button
+            onClick={handleBookNow}
+            className="btn btn-sm lg:btn-lg py-3 px-6 bg-[#355750] hover:bg-[#2c4844] text-white rounded-full transition-all duration-300 ease-in-out shadow-lg"
+          >
+            {heroData.btn1}
+          </button>
+          <button
+            className="btn btn-sm lg:btn-lg py-3 px-6 text-white border border-white hover:bg-white hover:text-black rounded-full transition-all duration-300 ease-in-out shadow-lg"
+          >
+            {heroData.btn2}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

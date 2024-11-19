@@ -1,0 +1,90 @@
+/* General Styles */
+.travel-app {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  .travel-page-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .travel-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  /* Card Styles */
+  .travel-card-wrapper {
+    width: 280px;
+    perspective: 1000px;
+  }
+  
+  .travel-card {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+  
+  .travel-card-bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .travel-card-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .travel-card-title {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .travel-card:hover .travel-card-content {
+    transform: translateY(0);
+  }
+  
+  /* YouTube Button Styles */
+  .youtube-float-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: red;
+    padding: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    color: white;
+  }
+  
+  .youtube-float-button svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .travel-page-title {
+      font-size: 2rem;
+    }
+  
+    .travel-card-wrapper {
+      width: 90%;
+    }
+  }
+  

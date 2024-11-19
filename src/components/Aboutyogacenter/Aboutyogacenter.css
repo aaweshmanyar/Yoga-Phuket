@@ -1,0 +1,22 @@
+.carousel-container {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+}
+
+.carousel-image {
+  object-fit: cover;
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .carousel-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-image {
+    height: 150px;
+  }
+}

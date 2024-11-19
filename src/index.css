@@ -1,0 +1,148 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::selection{
+  background-color: white;
+  color: #355750;
+}
+
+/* Style the main scrollbar */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+  height: 10px; /* Height for horizontal scrollbar */
+}
+
+/* Style the scrollbar track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light background color */
+  border-radius: 10px; /* Rounded track corners */
+}
+
+/* Style the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: #355750; /* Thumb color */
+  border-radius: 10px; /* Rounded thumb */
+  border: 2px solid #f1f1f1; /* Optional border for separation effect */
+}
+
+/* Style the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2a4b44; /* Darker color on hover for effect */
+}
+
+
+@layer base {
+  body {
+    @apply font-primary text-paragraph;
+  }
+  a {
+    @apply hover:text-green-300 transition;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-heading;
+  }
+  .h1 {
+    @apply text-[36px] leading-[46px] lg:text-[70px] lg:leading-[80px] font-extrabold;
+  }
+  .h2 {
+    @apply text-[26px] leading-[36px] lg:text-[50px] lg:leading-[60px] font-bold;
+  }
+  .h3 {
+    @apply text-[18px] leading-[28px] lg:text-[34px] lg:leading-[44px] font-semibold;
+  }
+  .section-sm {
+    @apply py-[70px];
+  }
+  .section-lg {
+    @apply py-[150px];
+  }
+  .btn {
+    @apply font-medium rounded text-base bg-shape;
+  }
+  .btn-sm {
+    @apply h-[48px] px-[25px];
+  }
+  .btn-md {
+    @apply h-[50px] px-[16px];
+  }
+  .btn-lg {
+    @apply h-[58px] rounded-md px-[40px];
+  }
+  .btn-orange {
+    @apply bg-green-300 text-white hover:bg-green-200 transition;
+  }
+  .form-control {
+    @apply h-[58px] border border-stroke-2 rounded pl-6 placeholder:text-paragraph text-paragraph outline-none;
+  }
+}
+
+
+/* Prevent flicker when moving the cursor quickly */
+li.relative.group:hover > ul {
+  display: block;
+}
+
+/* Smooth transition */
+.group-hover\:animate-fade-in {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Ensure no gap between parent and dropdown */
+.absolute {
+  top: 100%; /* Aligns it right below the parent */
+  left: 0;
+}
+
+
+
+/* Prevent body overflow on small screens */
+
+@media (max-width: 1920px) {
+  ::-webkit-scrollbar {
+    width: 15px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+  }
+}
+
+
+@media (max-width: 800px) {
+  ::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+  }
+}
+
+
+@media (max-width: 570px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
+
+
+
+.slide-up-fade-in {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95); /* Start position */
+  animation: slideUpFadeIn 0.7s ease-out forwards;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95); /* Start slightly below and scaled down */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1); /* End at normal position and size */
+  }
+}
