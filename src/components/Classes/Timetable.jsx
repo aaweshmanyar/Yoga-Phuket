@@ -16,66 +16,71 @@ const YogaSchedule = () => {
   }, []);
   const weekdaysSchedule = [
     [
-      "6:30 AM",
-      "Bending & Twisting",
-      "Hip & Shoulder Opening",
-      "Front & Middle Split",
-      "Backbending & Shoulder",
+      "07:45 AM (60 Min)",
+      "Full Body Opening",
+      "Meditation & body Movement",
+      "Thoracic Opening & Breathwork",
+      "Backbending  & Shoulder",
       "Hatha & Core",
     ],
     [
-      "7:45 AM",
-      "Hip Opening & Shoulder",
+      "09:00 AM (60 mins)",
+      "Meditation & body Movement",
       "Backbending & Shoulder",
-      "Ashtanga Series",
+      "Hatha & Core",
       "Bending & Twisting",
       "Arm balance & Core",
     ],
+    // [
+    //   "9:30 AM",
+    //   "Gentle Stretching",
+    //   "Hip & Leg Stretching",
+    //   "Backbending & Shoulder",
+    //   "Hatha & Core",
+    //   "Bending & Twisting",
+    // ],
     [
-      "9:30 AM",
-      "Gentle Stretching",
-      "Hip & Leg Stretching",
-      "Backbending & Shoulder",
+      "11:00 AM (60 mins)",
+      "Available For Private Class ",
+      "Available for private class",
+      "Available for Private Class",
+      "Available for Private Class",
+      "Available for Private Class",
+    ],
+    [
+      "05:00 PM (60 mins)",
+      "Available for Private Class",
+      "Kids Yoga",
+      "Available for Private Class",
+      "Kids Yoga",
+      "Available For Private Class ",
+    ],
+    [
+      "06:15 PM (60 mins)",
       "Hatha & Core",
-      "Bending & Twisting",
-    ],
-    [
-      "11:30 AM",
-      "Private Class Available",
-      "Full Body Opening",
-      "Private Class Available",
-      "Gentle Stretching",
-      "Private Class Available",
-    ],
-    [
-      "5:15 PM",
-      "Private Class Available",
-      "Kids Yoga",
-      "Private Class Available",
-      "Kids Yoga",
-      "Private Class Available",
-    ],
-    [
-      "6:30 PM",
-      "Hip & Shoulder",
-      "Backbending & Shoulder",
-      "Twisting & Forwardbend",
+      "Traditional Hatha & Core",
+      "Twisting & Forward",
       "Hatha & Core",
       "Front & Middle Split",
     ],
     [
-      "7:40 PM",
+      "7:30 PM (60 mins)",
       "Gentle Stretching",
       "Full Body Opening",
       "Backbending & Shoulder",
       "Twisting & Forwardbend",
-      "Hips & Shoulder",
+      "Hip & Shoulder",
     ],
   ];
   const weekendSchedule = [
-    ["7:30 AM", "Backbending & Shoulder Opening", "Inversion & Core"],
-    ["9:30 AM", "Full Body Opening", "Gentle Stretching"],
-    ["6:30 PM", "Gentle Stretching", "Full Body Opening"],
+    [
+      "07:45 AM (70 mins)",
+      "Backbending & Shoulder Opening",
+      "Ashtanga Full Series",
+    ],
+    ["09:00 AM (75 mins)", "Full Body Opening", "Gentle Stretching"],
+    ["05:30 PM (60 mins)", "Gentle Stretching", "Full Body Opening"],
+    ["07:00 PM (60 mins)", "Breathwork & body Movement", "Traditional Hatha"],
   ];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -369,26 +374,37 @@ const YogaSchedule = () => {
                       Front & Middle Split
                     </option>
                     <option value="Backbending & Shoulder">
-                      Backbending & Shoulder
+                      Backbending & Shoulder Opening
                     </option>
                     <option value="Gentle Stretching">Gentle Stretching</option>
-                    <option value="Private Class Available">
-                      Private Class Available
+                    <option value="Thoracic Opening & Breathwork">
+                      Thoracic Opening & Breathwork
+                    </option>
+                    <option value="Available For Private Class ">
+                      Available For Private Class
                     </option>
                     <option value="Hatha & Core">Hatha & Core</option>
+                    <option value="Breathwork & body Movement">
+                      Breathwork & body Movement
+                    </option>
                     <option value="Full Body Opening">Full Body Opening</option>
                     <option value="Kids Yoga">Kids Yoga</option>
-                    <option value="Ashtanga Series">Ashtanga Series</option>
+                    <option value="Ashtanga Series">
+                      Ashtanga Full Series
+                    </option>
+                    <option value="Traditional Hatha & Core">
+                      Traditional Hatha & Core
+                    </option>
                     <option value="Twisting & Forwardbend">
                       Twisting & Forwardbend
                     </option>
                     <option value="Arm balance & Core">
                       Arm balance & Core
                     </option>
-                    <option value="Hip & Leg Stretching">
-                      Hip & Leg Stretching
+
+                    <option value="Meditation & body Movement">
+                      Meditation & body Movement
                     </option>
-                    <option value="Inversion & Core">Inversion & Core</option>
                   </select>
                 </div>
                 <div className="flex flex-col">

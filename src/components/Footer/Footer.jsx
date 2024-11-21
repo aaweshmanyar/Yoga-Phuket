@@ -66,7 +66,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/yogaclass"
-                    className="text-white text-gray-200 transition-colors duration-200"
+                    className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Yoga Classes (Private & Group)
                   </a>
@@ -74,7 +74,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/yogatherapy"
-                    className="text-white  text-gray-200 transition-colors duration-200"
+                    className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Yoga Therapy
                   </a>
@@ -82,7 +82,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/kidsyoga"
-                    className="text-white text-gray-200 transition-colors duration-200"
+                    className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Kids Yoga
                   </a>
@@ -90,7 +90,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/yogateacher"
-                    className="text-white text-gray-200 transition-colors duration-200"
+                    className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Yoga Teacher
                   </a>
@@ -98,7 +98,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/trainingcourse"
-                    className="text-white text-gray-200 transition-colors duration-200"
+                    className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Training Courses
                   </a>
@@ -106,7 +106,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/soundhealing"
-                    className="text-white text-gray-200 transition-colors duration-200"
+                    className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Sound Healing
                   </a>
@@ -162,7 +162,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/termsconditions"
-                      className="text-white text-gray-200 transition-colors duration-200"
+                      className="text-white hover:opacity-65 transition-colors duration-200"
                     >
                       Terms & Conditions
                     </a>
@@ -170,7 +170,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/privacypolicy"
-                      className="text-white text-gray-200 transition-colors duration-200"
+                      className="text-white hover:opacity-65  transition-colors duration-200"
                     >
                       Privacy Policy
                     </a>
@@ -178,7 +178,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/refundpolicy"
-                      className="text-white text-gray-200 transition-colors duration-200"
+                      className="text-white  hover:opacity-65 transition-colors duration-200"
                     >
                       Refund Policy
                     </a>
@@ -200,16 +200,14 @@ const Footer = () => {
               <p className="text-sm text-gray-200 mb-3">
                 Phone: +66 80 251 1273
               </p>
-              <p className="text-sm text-gray-200">
-                Email: info@aadiyogacenterphuket.com
-              </p>
+              <a href="mailto:info@aadiyogacenterphuket.com" className="text-sm text-white hover:opacity-65"> Email: info@aadiyogacenterphuket.com </a>
 
               <div className="flex space-x-4 mt-6">
                 <a
                   href="https://www.instagram.com/aadiyogacenter.bangkok/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-teal-300 transition-colors duration-200"
+                  className="text-white hover:opacity-65 "
                 >
                   <FaInstagram className="text-teal-300 w-6 h-6" />
                 </a>
@@ -217,7 +215,7 @@ const Footer = () => {
                   href="https://line.me/ti/p/Xu79UdtdLg"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-teal-300 transition-colors duration-200"
+                  className="text-white hover:opacity-65"
                 >
                   <FaLine className="text-teal-300 w-6 h-6" />
                 </a>
@@ -225,7 +223,7 @@ const Footer = () => {
                   href="https://wa.me/66802511273?text=Hi"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-teal-300 transition-colors duration-200"
+                  className="text-white hover:opacity-65"
                 >
                   <FaWhatsapp className="text-teal-300 w-6 h-6" />
                 </a>
@@ -240,7 +238,7 @@ const Footer = () => {
               Developed by{" "}
               <a
                 href="https://www.linkedin.com/in/aawesh-manyar/"
-                className="hover:text-teal-200 font-bold"
+                className="text-white hover:opacity-65 font-bold"
               >
                 Aawesh Manyar
               </a>

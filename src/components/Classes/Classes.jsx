@@ -13,19 +13,20 @@ import yogacls6 from './classesimg/yogacls8.jpg';
 
 const Schedule = () => {
   const scheduleData = [
-    { time: "06:30 AM (60 mins)", monday: "Bending & Twisting", tuesday: "Hip & Shoulder Opening", wednesday: "Front & Middle Split", thursday: "Backbending & Shoulder", friday: "Hatha & Core" },
-    { time: "07:45 AM (60 mins)", monday: "Hip Opening & Shoulder", tuesday: "Backbending & Shoulder", wednesday: "Ashtanga Series", thursday: "Bending & Twisting", friday: "Inversion & Core" },
-    { time: "09:30 AM (75 mins)", monday: "Gentle Stretching", tuesday: "Hip & Leg Stretching", wednesday: "Backbending & Shoulder", thursday: "Hatha & Core", friday: "Bending & Twisting" },
-    { time: "11:30 AM (60 mins)", monday: "Available for Private Class", tuesday: "Full Body Opening", wednesday: "Available for Private Class", thursday: "Gentle Stretching", friday: "Available for Private Class" },
-    { time: "05:15 PM (45 mins)", monday: "Available for Private Class", tuesday: "Kids Yoga", wednesday: "Available for Private Class", thursday: "Kids Yoga", friday: "Available for Private Class" },
-    { time: "06:30 PM (60 mins)", monday: "Hip & Shoulder", tuesday: "Backbending & Shoulder", wednesday: "Twisting & Forwardbend", thursday: "Hatha & Core", friday: "Front & Middle Split" },
-    { time: "07:40 PM (60 mins)", monday: "Gentle Stretching", tuesday: "Full Body Opening", wednesday: "Backbending & Shoulder", thursday: "Twisting & Forwardbend", friday: "Hip & Shoulder" }
+    // { time: "06:30 AM (60 mins)", monday: "Bending & Twisting", tuesday: "Hip & Shoulder Opening", wednesday: "Front & Middle Split", thursday: "Backbending & Shoulder", friday: "Hatha & Core" },
+    { time: "07:45 AM (60 mins)", monday: "Full Body Opening", tuesday: "Meditation & body Movement", wednesday: "Thoracic Opening & Breathwork ", thursday: "Backbending  & Shoulder", friday: "Hatha & Core" },
+    { time: "09:00 AM (60 mins)", monday: "Meditation & body Movement", tuesday: "Backbending & Shoulder", wednesday: "Hatha & Core", thursday: " Bending & Twisting", friday: "Arm balance & Core" },
+    { time: "11:00 AM (60 mins)", monday: "Available for Private Class", tuesday: "Available for private class", wednesday: "Available for Private Class", thursday: "Available for Private Class", friday: "Available for Private Class" },
+    { time: "05:00 PM (60 mins)", monday: "Available for Private Class", tuesday: "Kids Yoga", wednesday: "Available for Private Class", thursday: "Kids Yoga", friday: "Available for Private Class" },
+    { time: "06:15 PM (60 mins)", monday: "Hatha & Core", tuesday: "Traditional Hatha & Core", wednesday: "Twisting & Forward", thursday: "Hatha & Core", friday: "Front & Middle Split" },
+    { time: "07:30 PM (60 mins)", monday: "Gentle Stretching", tuesday: "Full Body Opening", wednesday: "Backbending & Shoulder", thursday: "Twisting & Forwardbend", friday: "Hip & Shoulder" }
   ];
 
   const weekendScheduleData = [
-    { time: "07:30 AM (100 mins)", saturday: "Advanced Backbending", sunday: "Arm Balance & Core" },
-    { time: "09:30 AM (75 mins)", saturday: "Full Body Opening", sunday: "Gentle Stretching" },
-    { time: "06:30 PM (60 mins)", saturday: "Gentle Stretching", sunday: "Full Body Opening" }
+    { time: "07:45 AM (70 mins)", saturday: "Backbending & Shoulder Opening", sunday: "Ashtanga Full Series" },
+    { time: "09:00 AM (75 mins)", saturday: "Full Body Opening", sunday: "Gentle Stretching" },
+    { time: "05:30 PM (60 mins)", saturday: "Gentle Stretching", sunday: "Full Body Opening" },
+    { time: "07:00 PM (60 mins)", saturday: "Breathwork & body Movement", sunday: "Traditional Hatha" }
   ];
 
   const navigate = useNavigate();

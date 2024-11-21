@@ -16,6 +16,13 @@ export const navigation = [
       ]
     },
     {
+      name: "Package & Plans",
+      
+      submenu: [
+        { name: "Package & Plans ", href: "/plansandpackage" },
+      ]
+    },
+    {
       name: "Services",
       // href: "/services",
       submenu: [
