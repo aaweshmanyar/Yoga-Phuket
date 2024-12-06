@@ -1,118 +1,202 @@
-import React, { useState } from "react";
-import { BsChevronRight } from "react-icons/bs";
+import React from 'react';
 
-const YogaPricingPlans = () => {
-  const [index, setIndex] = useState(null); // No initial selection
-
-  const pricing = [
+const Pricing = () => {
+  const plans = [
     {
-      title: "Group Class Pricing",
-      plans: [
-        { name: "Drop in: 599 THB" },
-        { name: "5+1 Trial", price: "2400 THB", costPerClass: "(400 THB/Class)" },
-        { name: "12+1 Trial", price: "4800 THB", costPerClass: "(370 THB/Class)" },
-        { name: "21+1 Trial", price: "7700 THB", costPerClass: "(350 THB/Class)" },
-        { name: "29+1 Trial", price: "9900 THB", costPerClass: "(330 THB/Class)" },
+      price: 'THB 599',
+      title: 'Drop In',
+      validity: 'Valid for 7 days',
+      description: [
+        'One Class Access',
+        'Access Any 60-90 Minutes Classes',
+        'Non Refundable',
       ],
-      buttonText: "Select Group Plan",
     },
     {
-      title: "Tourist Package",
-      plans: [
-        { name: "1 Day pass = 799THB" },
-        { name: "2+1 Trial", price: "1350 THB" },
-        { name: "4+1 Trial", price: "2125 THB" },
+      price: 'THB 999',
+      title: '1 Day Pass',
+      validity: 'Tourist package',
+      description: [
+        '2 + 1 Trial = 1499 THB',
+        '4 + 1 Trial = 2250 THB',
+        '6 + 1 Trial = 2399 THB',
       ],
-      buttonText: "Select Tourist Plan",
     },
     {
-      title: "Private Class Pricing",
-      plans: [
-        { name: "1 Class", price: "1200 THB" },
-        { name: "5 Class", price: "5500 THB", costPerClass: "(1100 THB/Class)" },
-        { name: "10 Class", price: "9990 THB", costPerClass: "(999 THB/Class)" },
-        { name: "20 Class", price: "17980 THB", costPerClass: "(899 THB/Class)" },
+      title: 'Private Class Pricing',
+      description: [
+        '1 Class - 1000THB (1000THB/Class)',
+        '5 Classes - 4500THB (900THB/Class)',
+        '10 Classes - 8550THB (850THB/Class)',
       ],
-      buttonText: "Select Private Plan",
     },
     {
-      title: "Duo Private Pricing",
-      plans: [
-        { name: "1 Class", price: "1600 THB" },
-        { name: "5 Class", price: "7500 THB", costPerClass: "(1500 THB/Class)" },
-        { name: "10 Class", price: "14000 THB", costPerClass: "(1400 THB/Class)" },
+      title: 'Duo Private Pricing',
+      description: [
+        '1 Class - 1600THB (1600THB/Class)',
+        '5 Classes - 7500THB (1500THB/Class)',
+        '10 Classes - 14000THB (1400THB/Class)',
       ],
-      buttonText: "Select Duo Plan",
     },
   ];
 
   return (
-    <section className="section-sm lg:section-lg from-green-300 to-white py-12 lg:py-16 mt-[120px]">
-      <div className="container mx-auto px-4">
-        {/* Section Title */}
-        <div className="text-center mb-10 lg:mb-14">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
-            AADI YOGA CENTER - Class Pricing Plans
-          </h2>
-          <p className="text-base lg:text-lg max-w-lg mx-auto mt-4 text-gray-600">
-            Choose a class package and start your yoga journey today. We offer group and private classes, including options for tourists!
-          </p>
-        </div>
-
-        {/* Pricing Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pricing.map((category, currentIndex) => (
-            <div
-              onClick={() => setIndex(currentIndex)} // Setting the clicked div's index
-              className={`cursor-pointer relative border border-gray-200 shadow-md rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl ${index === currentIndex ? "bg-gradient-to-r from-green-400 to-green-300 text-white border-none" : "bg-white text-gray-800"
-                }`}
-              key={currentIndex}
-            >
-              {/* Header */}
-              <div
-                className={`text-center py-6 rounded-t-xl transition-colors duration-300 ${index === currentIndex ? "bg-green-500 text-white" : "bg-gray-100 text-heading"
-                  }`}
-              >
-                <h3 className="text-xl font-semibold mb-2">{category.title}</h3>
-              </div>
-
-              {/* Pricing Details */}
-              <div className="px-6 py-6">
-                <ul className="flex flex-col gap-4 mb-6">
-                  {category.plans.map((plan, idx) => (
-                    <li className="flex justify-between items-center p-4 border border-gray-200 rounded-md bg-white hover:bg-gray-50 text-heading" key={idx}>
-                      <span>{plan.name}</span>
-                      <span>
-                        {plan.price}{" "}
-                        {plan.costPerClass && (
-                          <span className="text-sm text-gray-500">
-                            {plan.costPerClass}
-                          </span>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Button */}
-                <div className="absolute bottom-4 mt-4 left-0 right-0 px-6">
-                  <button
-                    className={`w-full py-3 rounded-2xl font-medium flex items-center justify-center transition-all duration-300 ${index === currentIndex
-                        ? "bg-white text-heading"
-                        : "border-green-600 border text-green-600 hover:bg-green-600 hover:text-heading"
-                      }`}
-                  >
-                    {category.buttonText}
-                    <BsChevronRight className="ml-2 text-lg" />
-                  </button>
-                </div>
-              </div>
+    <div className="bg-[#f6fcff] py-10 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        {plans.map((plan, index) => (
+          <div
+            key={index}
+            className="bg-white border border-gray-200 rounded-lg shadow-lg flex flex-col justify-between p-8 text-center"
+            style={{ width: '360px', height: '400px' }} // Adjust width and height to match the image
+          >
+            <div>
+              <h2 className="text-xl font-semibold mb-2">{plan.title}</h2>
+              <p className="text-5xl font-bold text-gray-800">{plan.price}</p>
+              <p className="text-sm text-gray-500 mt-1 mb-6">{plan.validity}</p>
             </div>
-          ))}
-        </div>
+            <button className="w-full bg-green-300 text-white py-2 rounded-md font-semibold hover:bg-green-700 transition">
+              Select
+            </button>
+            <div className="mt-6">
+              <ul className="text-gray-700 text-sm leading-7">
+                {plan.description.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default YogaPricingPlans;
+export default Pricing;
+
+
+
+
+
+import React from "react";
+import { useEffect, useState } from "react";
+import "../Classes/Timetable.css";
+import { Toast, ToastContainer } from "react-bootstrap";
+import Logo from "../Classes/classesimg/demologo.png";
+
+import MainLayout from "../../Layouts/MainLayout";
+
+const Packageandplans = () => {
+  const [showToast, setShowToast] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setShowToast(false), 10000);
+  }, []);
+  return (
+    <MainLayout>
+      <div className="mt-[160px] mb-[120px] px-4 sm:px-8 lg:px-16">
+        {/* Info Box */}
+       {/* Bootstrap Toast Notification */}
+       <ToastContainer position="top-end" className="p-3 fixed mt-8">
+          <Toast
+            show={showToast} // Conditionally render the Toast
+            onClose={() => setShowToast(false)} // Close on click of X button
+            delay={5000} // Duration before it auto-closes (optional)
+            autohide // Auto-hide after delay
+          >
+            <Toast.Header>
+              <img
+                src={Logo} // Use your image URL here
+                className="rounded me-2 object-cover w-5 h-5"
+                alt="Instructor"
+              />
+              <strong className="me-auto">Aadiyogacenter Phuket</strong>
+              <small>Now</small>
+            </Toast.Header>
+            <Toast.Body>
+            We are working on this Package & Plans section. If you want to book
+            these plans, please contact our yoga instructor through the WhatsApp
+            contact below. Thank you 🙏
+            </Toast.Body>
+          </Toast>
+        </ToastContainer>
+
+        {/* Plan Cards */}
+        <div className="flex flex-wrap justify-center gap-8 mt-8 px-14">
+          {/* Plan Card 1 */}
+          <div className="bg-white shadow-lg border border-gray-300 rounded-lg w-full max-w-sm p-6">
+            <p className="text-2xl font-bold text-gray-800 text-center mb-4">
+              DROP IN
+            </p>
+            <h1 className="text-4xl font-extrabold text-center text-green-600 mb-2">
+              THB 599
+            </h1>
+            <p className="text-center text-gray-500 mb-4">Valid for 7 days</p>
+            <button className="w-full bg-green-300 hover:bg-green-600 text-white font-bold py-2 rounded-md transition duration-300 ease-in-out mb-4">
+              Contact us
+            </button>
+            <div className="text-center space-y-2">
+              <p className="text-gray-700">One Class Access</p>
+              <p className="text-gray-500">
+                Perfect for those who want flexibility in their schedule.
+              </p>
+              <p className="text-gray-500">
+                No commitment required. Access to any scheduled class.
+              </p>
+              <p className="font-bold text-red-500">Non-Refundable</p>
+            </div>
+          </div>
+
+          {/* Plan Card 2 */}
+          <div className="bg-white shadow-lg border border-gray-300 rounded-lg w-full max-w-sm p-6">
+            <p className="text-2xl font-bold text-gray-800 text-center mb-4">
+              1 Day Pass
+            </p>
+            <h1 className="text-4xl font-extrabold text-center text-green-600 mb-2">
+              999 THB
+            </h1>
+            <p className="text-center text-gray-500 mb-4">Tourist Package</p>
+            <button className="w-full bg-green-300 hover:bg-green-600 text-white font-bold py-2 rounded-md transition duration-300 ease-in-out mb-4">
+            Contact us
+            </button>
+            <div className="text-center space-y-2">
+              <p className="text-gray-700">2 + 1 Trial = 1499 THB</p>
+              <p className="text-gray-500">4 + 1 Trial = 2250 THB</p>
+              <p className="text-gray-500">6 + 1 Trial = 2399 THB</p>
+            </div>
+          </div>
+
+          {/* Plan Card 3 */}
+          <div className="bg-white shadow-lg border border-gray-300 rounded-lg w-full max-w-sm p-6">
+            <h1 className="text-4xl font-extrabold text-center text-green-600 mb-16">
+              Private Class Pricing
+            </h1>
+            <button className="w-full bg-green-300 hover:bg-green-600 text-white font-bold py-2 rounded-md transition duration-300 ease-in-out mb-4">
+            Contact us
+            </button>
+            <div className="text-center space-y-2">
+              <p className="text-gray-700">1 Class - 1000THB (1000THB/Class)</p>
+              <p className="text-gray-700">5 Classes - 4500THB (900THB/Class)</p>
+              <p className="text-gray-500">10 Classes - 8550THB (850THB/Class)</p>
+            </div>
+          </div>
+
+          {/* Plan Card 4 */}
+          <div className="bg-white shadow-lg border border-gray-300 rounded-lg w-full max-w-sm p-6">
+            <h1 className="text-4xl font-extrabold text-center text-green-600 mb-16">
+              Duo Private Pricing
+            </h1>
+            <button className="w-full bg-green-300 hover:bg-green-600 text-white font-bold py-2 rounded-md transition duration-300 ease-in-out mb-4">
+            Contact us
+            </button>
+            <div className="text-center space-y-2">
+              <p className="text-gray-700">1 Class - 1600THB (1600THB/Class)</p>
+              <p className="text-gray-700">5 Classes - 7500THB (1500THB/Class)</p>
+              <p className="text-gray-500">10 Classes - 14000THB (1400THB/Class)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </MainLayout>
+  );
+};
+
+export default Packageandplans;

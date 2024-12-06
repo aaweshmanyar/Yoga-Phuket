@@ -33,6 +33,7 @@ import RegistrationForm from "./components/Registrationform/Registration.jsx";
 import WhatsAppButton from './components/Whatsapp/WhatsAppButton.jsx'
 import ChatBot from './components/Chatbot/Chatbot.jsx';
 import Timetable from './components/Classes/Timetable.jsx';
+import Checkout from "./components/plans & promotion/Checkout.jsx";
 const App = () => {
   Aos.init({
     duration: 1400,
@@ -70,6 +71,7 @@ const App = () => {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/registration" element={<RegistrationForm />} />
           <Route path="/Timetable" element={<Timetable />} />
+          <Route path="/Checkout" element={<Checkout />} />
           {/* Conditionally render Normalcls route based on authentication */}
           {/* <Route path="/normalclass" element={<ProtectedRoute element={<Normalcls />} />} /> */}
           <Route path="/normalclass" element={<Timetable />} />

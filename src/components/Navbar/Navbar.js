@@ -11,7 +11,6 @@ export const navigation = [
       // href: "/normalclass",
       submenu: [
         { name: "Book Class", href: "/normalclass" },
-        { name: "Package & Plans ", href: "/plansandpackage" },
         { name: "Class Schedule ", href: "/schedule" },
       ]
     },
