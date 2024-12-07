@@ -33,7 +33,7 @@ const Review = () => {
         {/* Google Review Widget */}
         <div
           className="w-full rounded-xl shadow-lg border border-white bg-opacity-70"
-          class="elfsight-app-34e9b824-1562-42b0-ba10-d21364bb6320" data-elfsight-app-lazy
+          class="elfsight-app-71dbdf2b-b453-447a-a16f-09efb32df0c3" data-elfsight-app-lazy
         ></div>
 
         {/* Testimonial Footer */}

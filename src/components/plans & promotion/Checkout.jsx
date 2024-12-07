@@ -14,17 +14,26 @@ const Checkout = () => {
   const [isStep2Open, setIsStep2Open] = useState(false); // Toggle Step 2 visibility
   const [sessionCount, setSessionCount] = useState(1); // Default session count is 1
   const [startDate, setStartDate] = useState(new Date()); // Default start date
+  const [selectedOption, setSelectedOption] = useState(selectedPlan.description[0]); // Default dropdown option
 
-  // Increment session count
-  const handleIncrement = () => setSessionCount((prevCount) => prevCount + 1);
-
-  // Decrement session count (minimum is 1)
-  const handleDecrement = () => {
-    if (sessionCount > 1) setSessionCount((prevCount) => prevCount - 1);
+  // Handle dropdown change
+  const handleDropdownChange = (e) => {
+    setSelectedOption(e.target.value);
   };
 
-  // Calculate the total price
-  const calculateTotalPrice = () => Number(selectedPlan.price) * sessionCount;
+  // Calculate price dynamically
+  const calculatePriceFromDescription = () => {
+    const matchedOption = selectedPlan.description.find((desc) =>
+      desc.startsWith(selectedOption)
+    );
+    if (matchedOption) {
+      const match = matchedOption.match(/(\d+)THB/); // Extract price from text
+      return match ? parseInt(match[1], 10) : selectedPlan.defprice;
+    }
+    return selectedPlan.defprice;
+  };
+
+  const totalPrice = calculatePriceFromDescription();
 
   // Step 1: Proceed to Step 2
   const handleContinue = () => {
@@ -79,8 +88,7 @@ const Checkout = () => {
                   </a>{" "}
                   for a faster checkout.
                 </p>
-                <p className="text-sm text-gray-600  text-center mt-4 mb-4">
-                  {" "}
+                <p className="text-sm text-gray-600 text-center mt-4 mb-4">
                   ------------- Or continue as guest -------------
                 </p>
                 <input
@@ -138,39 +146,40 @@ const Checkout = () => {
                 />
               </div>
 
+              {/* Plan Details */}
               <div className="mb-6">
                 <p className="text-sm">
                   <strong>Plan:</strong> {selectedPlan.title}
                 </p>
-                <p className="text-sm">
-                  <strong>Price:</strong> THB {selectedPlan.price}
-                </p>
-                <p className="text-sm">
-                  <strong>Sessions:</strong> {sessionCount}
-                </p>
+
+                {["Private Class Pricing", "Duo Private Pricing"].includes(
+                  selectedPlan.title
+                ) ? (
+                  <>
+                    <label className="text-sm font-semibold block mb-2">
+                      Select Option
+                    </label>
+                    <select
+                      className="w-full p-2 border border-gray-300 rounded mb-4"
+                      value={selectedOption}
+                      onChange={handleDropdownChange}
+                    >
+                      {selectedPlan.description.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </>
+                ) : (
+                  <p className="text-sm">
+                    <strong>Price:</strong> THB {selectedPlan.price}
+                  </p>
+                )}
               </div>
 
-              {/* Adjust Sessions */}
-              <div className="flex items-center border-t border-gray-300 pt-4">
-                <p className="text-sm">Adjust Sessions:</p>
-                <button
-                  className="ml-4 px-3 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
-                  onClick={handleDecrement}
-                >
-                  -
-                </button>
-                <span className="px-4">{sessionCount}</span>
-                <button
-                  className="px-3 py-1 bg-gray-200 text-gray-600 rounded hover:bg-gray-300"
-                  onClick={handleIncrement}
-                >
-                  +
-                </button>
-              </div>
-
-              {/* Total Price */}
               <p className="mt-4 text-lg font-bold">
-                Total Price: THB {calculateTotalPrice()}
+                Total Price: THB {totalPrice}
               </p>
 
               {/* Secure Checkout */}
