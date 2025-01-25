@@ -96,31 +96,85 @@ const ClassBooking = () => {
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const phone = form.phone.value;
-    const address = form.address.value;
+  
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
+    const address = form.address.value.trim();
     const day = form.day.value;
     const time = form.time.value;
     const className = form.className.value;
-    const isPaymentCenterChecked = form.isPaymentCenterChecked.checked; // Get the checkbox state
-
-    if (!name || !email || !phone || !address || !day || !time || !className) {
-      alert("Please fill all fields before submitting.");
+  
+    if (!name || !email || !phone || !day || !time || !className) {
+      alert("Please fill all required fields before submitting.");
       return;
     }
-
+  
     setIsLoading(true); // Start loading
-
+  
     try {
-      const response = await fetch(
-        "https://phuketbackend.onrender.com/schedule/api/book-class",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+      // Check if the email exists in the `guests` collection
+      const guestsSnapshot = await db
+        .collection("guests")
+        .where("email", "==", email)
+        .get();
+  
+      if (!guestsSnapshot.empty) {
+        const guestDoc = guestsSnapshot.docs[0];
+        const guestData = guestDoc.data();
+  
+        console.log("Guest found:", guestData);
+  
+        const { planName, validity, description } = guestData;
+  
+        // Check if the plan is valid
+        if (validity && new Date(validity) < new Date()) {
+          alert("Your plan is no longer valid. Please renew your plan.");
+          setIsLoading(false);
+          return;
+        }
+  
+        if (planName === "Drop-in") {
+          // Allow only one class booking for Drop-in
+          if (description <= 0) {
+            alert("You have no remaining classes available under the Drop-in plan.");
+            setIsLoading(false);
+            return;
+          }
+        } else if (
+          ["Tourist Package", "Private Class Pricing", "Duo Private Pricing"].includes(planName)
+        ) {
+          // Subtract 1 from description if a class is booked
+          if (description <= 0) {
+            alert("You have no remaining classes available in your plan.");
+            setIsLoading(false);
+            return;
+          }
+        }
+  
+        // Proceed with booking and update the guest record
+        const response = await fetch(
+          "https://api.aadiyogacenterphuket.com/schedule/api/book-class",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              phone,
+              address,
+              day,
+              time,
+              className,
+            }),
+          }
+        );
+  
+        const data = await response.json();
+        if (response.status === 200) {
+          setBookingData({
             name,
             email,
             phone,
@@ -128,30 +182,23 @@ const ClassBooking = () => {
             day,
             time,
             className,
-            isPaymentCenterChecked, // Include checkbox state in the request
-          }),
-        }
-      );
-
-      const data = await response.json();
-      if (response.status === 200) {
-        // Store booking data and bookingId in state for later use
-        setBookingData({
-          name,
-          email,
-          phone,
-          address,
-          day,
-          time,
-          className,
-          bookingId: data.bookingId, // Save bookingId from the server
-        });
-        alert(data.message); // Show message based on payment option
-        if (!isPaymentCenterChecked) {
-          setShowQRCode(true); // Show QR code for payment after booking if not pay at center
+            bookingId: data.bookingId,
+          });
+          alert(data.message);
+  
+          // Show QR code modal if payment at the center is not checked
+          setShowQRCode(true);
+  
+          // Update the guest's class count in Firestore
+          await guestDoc.ref.update({
+            description: description - 1,
+          });
+        } else {
+          alert(data.message);
         }
       } else {
-        alert(data.message);
+        console.log("No matching guest found. Proceeding with form data.");
+        alert("No matching guest found. Please check your details.");
       }
     } catch (error) {
       console.error("Error booking class:", error);
@@ -160,49 +207,8 @@ const ClassBooking = () => {
       setIsLoading(false); // Stop loading
     }
   };
-
-  const handlePaymentConfirmation = async () => {
-    const paymentReceipt = document.getElementById("paymentReceipt").files[0];
-    if (!paymentReceipt) {
-      alert("Please upload the payment receipt.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("paymentReceipt", paymentReceipt);
-
-    if (!bookingData || !bookingData.bookingId) {
-      alert("No booking found. Please book a class before confirming payment.");
-      return;
-    }
-
-    setIsLoading(true); // Start loading
-
-    try {
-      const response = await fetch(
-        `https://phuketbackend.onrender.com/schedule/api/confirm-payment/${bookingData.bookingId}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-      if (response.status === 200) {
-        alert(data.message);
-        window.location.reload(); // Reload the page to reflect changes
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.error("Error confirming payment:", error);
-      alert(
-        "An error occurred while confirming the payment. Please try again."
-      );
-    } finally {
-      setIsLoading(false); // Stop loading
-    }
-  };
+  
+  
 
   return (
     <div className="px-4 py-8 max-w-7xl mx-auto mt-[120px]">
@@ -402,8 +408,6 @@ function ScheduleTable({ timeSlots, scheduleByDay, bookedClasses }) {
 function BookingModal({
   onClose,
   handleSubmit,
-  showQRCode,
-  handlePaymentConfirmation,
   scheduleByDay,
 }) {
   const { user } = useAuth(); // Get the current user from the Auth context
@@ -595,31 +599,6 @@ function BookingModal({
             Book Class
           </button>
         </form>
-
-        {showQRCode &&
-          !payAtCenter && ( // Only show QR if Pay at Center is unchecked
-            <div id="qrcode-container">
-              <h2>Complete Payment</h2>
-              <p>Scan the QR code below to complete the payment:</p>
-              <div className="qrimg">
-                <img id="qrcode" src={Qrcode} alt="UPI QR Code" />
-              </div>
-              <label htmlFor="paymentReceipt">Upload Payment Receipt:</label>
-              <input
-                type="file"
-                id="paymentReceipt"
-                name="paymentReceipt"
-                accept="image/*"
-                required
-              />
-              <button
-                className="bg-green-300 p-2 rounded text-white mt-3"
-                onClick={handlePaymentConfirmation}
-              >
-                Confirm Payment
-              </button>
-            </div>
-          )}
       </div>
     </div>
   );

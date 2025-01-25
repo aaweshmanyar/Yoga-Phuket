@@ -8,7 +8,7 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   const navigatetab = () => {
-    navigate("/normalclass");
+    navigate("/classbooking/normal-class");
   };
 
   return (
@@ -22,7 +22,7 @@ const HeroSection = () => {
     >
       {/* SEO Metadata */}
       <Helmet>
-        <title>Aadi Yoga Center Phuket| Home</title>
+        <title>Aadi Yoga Center Phuket</title>
         <meta
           name="description"
           content="Discover a new lifestyle with yoga at Phuket Aadi Yoga Center. Cultivate mindfulness and compassion in beautiful Phuket."

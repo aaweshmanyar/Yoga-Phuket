@@ -1,50 +1,117 @@
 import React, { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import MainLayout from "../../Layouts/MainLayout";
+import './Checkout.css'
 
 const Checkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { selectedPlan } = location.state || {}; // Get the selected plan from state
+  const { selectedPlan } = location.state || {};
 
-  const [email, setEmail] = useState(""); // Store email input
-  const [isStep2Open, setIsStep2Open] = useState(false); // Toggle Step 2 visibility
-  const [sessionCount, setSessionCount] = useState(1); // Default session count is 1
-  const [startDate, setStartDate] = useState(new Date()); // Default start date
-  const [selectedOption, setSelectedOption] = useState(selectedPlan.description[0]); // Default dropdown option
+  const [email, setEmail] = useState("");
+  const [isStep2Open, setIsStep2Open] = useState(false);
+  const [sessionCount, setSessionCount] = useState(1);
+  const [selectedOption, setSelectedOption] = useState("");
+  const [price, setPrice] = useState(selectedPlan?.price || 0);
+  const [isLoading, setIsLoading] = useState(false); // State for loader
 
-  // Handle dropdown change
-  const handleDropdownChange = (e) => {
-    setSelectedOption(e.target.value);
+  const handleIncrement = () => setSessionCount((prevCount) => prevCount + 1);
+  const handleDecrement = () => {
+    if (sessionCount > 1) setSessionCount((prevCount) => prevCount - 1);
   };
 
-  // Calculate price dynamically
-  const calculatePriceFromDescription = () => {
-    const matchedOption = selectedPlan.description.find((desc) =>
-      desc.startsWith(selectedOption)
-    );
-    if (matchedOption) {
-      const match = matchedOption.match(/(\d+)THB/); // Extract price from text
-      return match ? parseInt(match[1], 10) : selectedPlan.defprice;
-    }
-    return selectedPlan.defprice;
-  };
+  const calculateTotalPrice = () => Number(price) * sessionCount;
 
-  const totalPrice = calculatePriceFromDescription();
-
-  // Step 1: Proceed to Step 2
   const handleContinue = () => {
-    if (email.trim() === "") {
-      alert("Please enter a valid email.");
-    } else {
-      setIsStep2Open(true);
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    setIsStep2Open(true);
+  };
+
+  const handleDropdownChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedOption(selectedValue);
+    const priceMatch = selectedValue.match(/(\d+)\s*THB/);
+    if (priceMatch) {
+      setPrice(parseInt(priceMatch[1], 10));
     }
   };
 
-  // Redirect if no plan is selected
+  const loadRazorpayScript = () => {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => reject(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePayment = async () => {
+    const amount = calculateTotalPrice();
+    setIsLoading(true); // Start loader
+    try {
+      const isScriptLoaded = await loadRazorpayScript();
+      if (!isScriptLoaded) {
+        alert("Razorpay SDK failed to load. Are you online?");
+        setIsLoading(false); // Stop loader
+        return;
+      }
+
+      const trimmedDescription = selectedOption
+        ? selectedOption.split("Trial")[0].trim()
+        : selectedPlan.description;
+
+      const response = await fetch(
+        "https://api.aadiyogacenterphuket.com/payment/checkout",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email,
+            amount,
+            sessionCount,
+            planName: selectedPlan.title,
+            validity: selectedPlan.validity,
+            description: trimmedDescription,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create payment order");
+      }
+
+      const options = {
+        key: data.key_id,
+        amount: data.amount,
+        currency: data.currency,
+        name: "Aadi Yoga Center Phuket",
+        description: "Purchase Subscription Plan",
+        order_id: data.orderId,
+        handler: function (response) {
+          alert(`Payment Successful\nPayment ID: ${response.razorpay_payment_id}`);
+          setIsLoading(false); // Stop loader
+          navigate("/normalclass", { state: { email, amount } });
+        },
+        prefill: { email },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      console.error("Error during payment:", error);
+      alert("An error occurred during payment. Please try again.");
+      setIsLoading(false); // Stop loader
+    }
+  };
+
   if (!selectedPlan) {
     return (
       <div className="text-center mt-10">
@@ -63,126 +130,83 @@ const Checkout = () => {
     <MainLayout>
       <div className="bg-gray-50 py-10 px-4 mt-[150px]">
         <div className="max-w-5xl mx-auto bg-white shadow-lg p-6 rounded-lg">
-          {/* Header */}
-          <h1 className="text-2xl font-semibold mb-6 text-gray-700">
-            Checkout
-          </h1>
-          <p className="border-b-2 border-gray-300 mb-6"></p>
-
-          {/* Grid Layout */}
+          <h1 className="text-2xl font-semibold mb-6 text-gray-700">Checkout</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Left Section */}
             <div>
-              {/* Customer Details */}
-              <div className="border-b border-gray-300 pb-6 mb-6">
-                <h2 className="text-lg font-semibold mb-2 text-gray-700">
-                  1. Customer Details
-                </h2>
-                <p className="bg-[#dcdcdc] text-heading text-sm px-4 py-2 rounded mb-2">
-                  Already have an account?{" "}
-                  <a
-                    href="/signin"
-                    className="text-blue-600 font-bold underline hover:text-blue-800"
-                  >
-                    Log in
-                  </a>{" "}
-                  for a faster checkout.
-                </p>
-                <p className="text-sm text-gray-600 text-center mt-4 mb-4">
-                  ------------- Or continue as guest -------------
-                </p>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded mb-4"
-                />
-                <button
-                  onClick={handleContinue}
-                  className="w-full bg-green-300 text-white py-2 rounded hover:bg-green-500"
-                >
-                  Continue
-                </button>
-              </div>
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded mb-4"
+              />
+              <button
+                onClick={handleContinue}
+                className="w-full bg-green-300 text-white py-2 rounded hover:bg-green-500"
+              >
+                Continue
+              </button>
 
-              {/* Additional Info */}
               {isStep2Open && (
                 <div>
-                  <h2 className="text-lg font-semibold mb-4">
-                    Additional Info
-                  </h2>
+                  <h2 className="text-lg font-semibold mb-4 mt-4">Additional Info</h2>
                   <p className="mb-4">
-                    Thank you for choosing the{" "}
-                    <strong>{selectedPlan.title}</strong> plan. Proceed to the
-                    payment section to complete your order.
+                    Thank you for choosing the <strong>{selectedPlan.title}</strong> plan.
+                    Proceed to the payment section to complete your order.
                   </p>
                   <button
-                    onClick={() =>
-                      alert("Payment Gateway Integration Placeholder")
-                    }
-                    className="w-full bg-green-300 text-white py-2 rounded hover:bg-green-500"
+                    onClick={handlePayment}
+                    className="w-full bg-green-300 text-white py-2 rounded hover:bg-green-500 flex items-center justify-center"
+                    disabled={isLoading} // Disable button while loading
                   >
-                    Proceed to Payment
+                    {isLoading ? (
+                      <span className="loader mr-2"></span> // Show loader
+                    ) : (
+                      "Proceed to Payment"
+                    )}
                   </button>
                 </div>
               )}
             </div>
 
-            {/* Right Section */}
             <div className="bg-gray-100 border border-gray-300 p-6 rounded">
-              {/* Order Summary */}
               <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
 
-              {/* Start Date */}
-              <div className="mt-6 mb-8">
-                <label className="text-sm font-semibold block mb-2">
-                  Choose a start date *
-                </label>
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                />
-              </div>
+              {(selectedPlan.title === "Tourist package" ||
+                selectedPlan.title === "Private Class Pricing" ||
+                selectedPlan.title === "Duo Private Pricing") && (
+                <div className="mb-6">
+                  <label className="block text-sm font-semibold mb-2">Choose an option</label>
+                  <select
+                    value={selectedOption}
+                    onChange={handleDropdownChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  >
+                    <option value="">Select</option>
+                    {selectedPlan.description.map((option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
-              {/* Plan Details */}
               <div className="mb-6">
-                <p className="text-sm">
-                  <strong>Plan:</strong> {selectedPlan.title}
-                </p>
-
-                {["Private Class Pricing", "Duo Private Pricing"].includes(
-                  selectedPlan.title
-                ) ? (
-                  <>
-                    <label className="text-sm font-semibold block mb-2">
-                      Select Option
-                    </label>
-                    <select
-                      className="w-full p-2 border border-gray-300 rounded mb-4"
-                      value={selectedOption}
-                      onChange={handleDropdownChange}
-                    >
-                      {selectedPlan.description.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </>
-                ) : (
-                  <p className="text-sm">
-                    <strong>Price:</strong> THB {selectedPlan.price}
-                  </p>
-                )}
+                <p className="text-sm"><strong>Plan:</strong> {selectedPlan.title}</p>
+                <p className="text-sm"><strong>Price:</strong> THB {price}</p>
+                <p className="text-sm"><strong>Sessions:</strong> {sessionCount}</p>
               </div>
 
-              <p className="mt-4 text-lg font-bold">
-                Total Price: THB {totalPrice}
-              </p>
+              <div className="flex items-center border-t border-gray-300 pt-4">
+                <p className="text-sm">Adjust Sessions:</p>
+                <button onClick={handleDecrement} className="ml-4 px-3 py-1 bg-gray-200 text-gray-600 rounded">-</button>
+                <span className="px-4">{sessionCount}</span>
+                <button onClick={handleIncrement} className="px-3 py-1 bg-gray-200 text-gray-600 rounded">+</button>
+              </div>
 
-              {/* Secure Checkout */}
+              <p className="mt-4 text-lg font-bold">Total Price: THB {calculateTotalPrice()}</p>
+
               <div className="mt-8">
                 <div className="flex items-center text-green-600 mb-4">
                   <FaLock className="mr-2" />
@@ -191,8 +215,7 @@ const Checkout = () => {
                 <ul className="text-sm list-disc ml-6 text-gray-600">
                   <li>
                     <strong>Data Usage:</strong> Collected data helps us process
-                    payments, respond to inquiries, and provide personalized
-                    services.
+                    payments, respond to inquiries, and provide personalized services.
                   </li>
                   <li className="mt-2">
                     <strong>Refund Processing:</strong> Approved refunds are

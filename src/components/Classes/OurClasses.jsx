@@ -43,7 +43,7 @@ const OurClasses = () => {
       <svg
         className="w-full"
         height="100"
-        viewBox="0 110 1420 100"
+        viewBox="10 110 1420 100"
         preserveAspectRatio="none"
       >
         <path
@@ -66,7 +66,7 @@ const OurClasses = () => {
           </p>
           <div className="flex justify-center md:justify-end">
             <button
-              onClick={() => navigate("/normalclass")}
+              onClick={() => navigate("/classbooking/normal-class")}
               className="px-4 py-2 md:px-6 md:py-3 bg-green-300 text-white font-bold rounded-lg hover:bg-pink-300 transition"
             >
               BOOK NOW

@@ -65,7 +65,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="/yogaclass"
+                    href="https://aadiyogacenterphuket.com/services/yoga-class"
                     className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Yoga Classes (Private & Group)
@@ -73,7 +73,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="/yogatherapy"
+                    href="https://aadiyogacenterphuket.com/services/yoga-therapy"
                     className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Yoga Therapy
@@ -81,23 +81,16 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="/kidsyoga"
+                    href="https://aadiyogacenterphuket.com/services/kids-yoga"
                     className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Kids Yoga
                   </a>
                 </li>
+                
                 <li>
                   <a
-                    href="/yogateacher"
-                    className="text-white hover:opacity-65 transition-colors duration-200"
-                  >
-                    Yoga Teacher
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/trainingcourse"
+                    href="https://aadiyogacenterphuket.com/services/training-course"
                     className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Training Courses
@@ -105,7 +98,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="/soundhealing"
+                    href="https://aadiyogacenterphuket.com/services/sound-healing"
                     className="text-white hover:opacity-65 transition-colors duration-200"
                   >
                     Sound Healing
@@ -161,7 +154,7 @@ const Footer = () => {
                 <ul className="space-y-2">
                   <li>
                     <a
-                      href="/termsconditions"
+                      href="/terms-conditions"
                       className="text-white hover:opacity-65 transition-colors duration-200"
                     >
                       Terms & Conditions
@@ -169,7 +162,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="/privacypolicy"
+                      href="/privacy-policy"
                       className="text-white hover:opacity-65  transition-colors duration-200"
                     >
                       Privacy Policy
@@ -177,7 +170,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="/refundpolicy"
+                      href="/refund-policy"
                       className="text-white  hover:opacity-65 transition-colors duration-200"
                     >
                       Refund Policy
@@ -234,7 +227,7 @@ const Footer = () => {
           {/* Footer Bottom Section */}
           <div className="mt-10 border-t border-teal-700 pt-5 flex flex-col md:flex-row items-center justify-between">
             <p className="text-sm text-gray-200">
-              &copy; 2024 aadiyogacenter.com. All Rights Reserved. | Designed &
+              &copy; 2024 aadiyogacenterphuket.com. All Rights Reserved. | Designed &
               Developed by{" "}
               <a
                 href="https://www.linkedin.com/in/aawesh-manyar/"

@@ -19,8 +19,8 @@ const Packageandplans = () => {
     },
     {
       price: 999,
-      title: "1 Day Pass",
-      validity: "Tourist package",
+      title: "Tourist package",
+      validity: "Valid for 7 days",
       description: [
         "2 + 1 Trial = 1499 THB",
         "4 + 1 Trial = 2250 THB",
@@ -29,7 +29,7 @@ const Packageandplans = () => {
     },
     {
       title: "Private Class Pricing",
-      validity: "1 Class",
+      validity: "Valid for 3 to 6 months",
       defprice: 1000,
       description: [
         "1 Class - 1000THB (1000THB/Class)",
@@ -39,7 +39,7 @@ const Packageandplans = () => {
     },
     {
       title: "Duo Private Pricing",
-      validity: "1 Class",
+      validity: "Valid for 3 to 6 months",
       defprice: 1600,
       description: [
         "1 Class - 1600THB (1600THB/Class)",

@@ -33,7 +33,7 @@ const AuthForm = () => {
 
         try {
             if (isSignUp) {
-                const response = await fetch('https://phuketbackend.onrender.com/auth/signup', {
+                const response = await fetch('https://api.aadiyogacenterphuket.com/auth/signup', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(userData),
@@ -47,7 +47,7 @@ const AuthForm = () => {
                 }
             } else {
                 const loginData = { email, password };
-                const response = await fetch('https://phuketbackend.onrender.com/auth/login', {
+                const response = await fetch('https://api.aadiyogacenterphuket.com/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(loginData),
@@ -72,7 +72,7 @@ const AuthForm = () => {
     const handleForgotPassword = async () => {
         setLoading(true); // Start loading
         try {
-            const response = await fetch('https://phuketbackend.onrender.com/auth/forgot-password', {
+            const response = await fetch('https://api.aadiyogacenterphuket.com/auth/forgot-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),
@@ -100,7 +100,7 @@ const AuthForm = () => {
 
         setLoading(true); // Start loading
         try {
-            const response = await fetch('https://phuketbackend.onrender.com/auth/verify-otp', {
+            const response = await fetch('https://api.aadiyogacenterphuket.com/auth/verify-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, otp }),
@@ -123,7 +123,7 @@ const AuthForm = () => {
     const handleResetPassword = async () => {
         setLoading(true); // Start loading
         try {
-            const response = await fetch('https://phuketbackend.onrender.com/auth/reset-password', {
+            const response = await fetch('https://api.aadiyogacenterphuket.com/auth/reset-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, newPassword }),
@@ -147,6 +147,7 @@ const AuthForm = () => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
+           
             <div className="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full relative">
                 <ToastContainer />
                 {loading && (
@@ -293,6 +294,7 @@ const AuthForm = () => {
                             {isSignUp ? 'Already have an account? Login' : 'Need an account? Sign Up'}
                         </button>
                     )}
+
                 </div>
             </div>
         </div>
