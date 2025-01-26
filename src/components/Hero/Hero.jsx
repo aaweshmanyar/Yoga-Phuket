@@ -1,7 +1,7 @@
 import React from "react";
 import { heroData } from "./Herodata"; // Adjust path if necessary
 import { useNavigate } from "react-router-dom";
-import HeroImage from "./heroimg/hero.jpg";
+import HeroImage from "./heroimg/hero.jpeg";
 import { Helmet } from "react-helmet-async";
 
 const HeroSection = () => {
@@ -22,19 +22,22 @@ const HeroSection = () => {
     >
       {/* SEO Metadata */}
       <Helmet>
-        <title>Aadi Yoga Center Phuket</title>
+        <title>Best Yoga Classes in Phuket - Aadi Yoga Center phuket</title>
         <meta
           name="description"
-          content="Discover a new lifestyle with yoga at Phuket Aadi Yoga Center. Cultivate mindfulness and compassion in beautiful Phuket."
+          content="Join Aadi Yoga Center in Patong, Phuket, for transformative yoga classes. Discover mindfulness, relaxation, and wellness in a serene environment. Book your session today!"
         />
         <meta
           name="keywords"
-          content="Yoga, Phuket Yoga Center, Mindfulness, Aadi Yoga, Wellness, yoga to, yoga center in phuket, yoga center near me, Yoga classes in thailand, Best yoga in bangkok, Best yoga in phuket, Hot yoga in bangkok, Hot yoga in phuket"
+          content="Yoga in Phuket, Best Yoga Center in Phuket, Yoga Classes in Patong, Yoga Near Me, Wellness in Phuket, Hot Yoga in Phuket, Aadi Yoga Center, Yoga Retreats in Thailand"
         />
-        <meta property="og:title" content="Phuket Aadi Yoga Center" />
+        <meta
+          property="og:title"
+          content="Transform Your Life with Yoga in Phuket"
+        />
         <meta
           property="og:description"
-          content="Yoga is a lifestyle. Join us at Aadi Yoga Center to embrace mindfulness and wellness in Phuket."
+          content="Experience yoga like never before at Aadi Yoga Center, Phuket. Cultivate mindfulness, relieve stress, and embrace wellness in a tranquil setting."
         />
         <meta property="og:image" content={HeroImage} />
       </Helmet>
@@ -55,7 +58,13 @@ const HeroSection = () => {
           >
             {/* Background for text with improved responsiveness */}
             <div className="relative mt-[170px] bg-white/70 text-gray-800 p-6 rounded-md w-full max-w-md lg:max-w-xl">
-              <h1 className="text-3xl text-left sm:text-4xl font-bold leading-tight mb-4" style={{ fontSize: '1.7rem', '@media (min-width: 1024px)': { fontSize: '1.5rem' } }}>
+              <h1
+                className="text-3xl text-left sm:text-4xl font-bold leading-tight mb-4"
+                style={{
+                  fontSize: "1.7rem",
+                  "@media (min-width: 1024px)": { fontSize: "1.5rem" },
+                }}
+              >
                 <span className="block">{heroData.title1}</span>
                 <span className="block">{heroData.title2}</span>
               </h1>
